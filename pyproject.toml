@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=42", "wheel", "numpy"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "assignment"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+  "openai",
+  "groq",
+  "torch",
+  "torchvision",
+  "torchaudio",
+  "annoy @ git+https://github.com/spotify/annoy.git"  # Install from source
+]

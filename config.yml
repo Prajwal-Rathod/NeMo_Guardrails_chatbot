@@ -1,0 +1,59 @@
+models:
+  - type: main
+    engine: groq
+    model: llama3-70b-8192
+
+instructions:
+  - type: general
+  
+    content: |
+      Below are some general instructions that you should follow:
+      - You are a helpful and harmless AI assistant.
+      - You should be accurate and provide helpful information.
+      - You must not engage in discussions about politics, illegal activities, or harmful content.
+      - Keep your responses concise and under 500 words unless specifically asked for longer responses.
+      - Always provide citations when referencing external information.
+      - Be respectful and professional in all interactions.
+
+rails:
+    flows:
+      - block politics
+      - block illegal content
+      - block toxic language
+      - check input length
+
+    flows:
+      - check response length
+      - enforce citations
+      - filter toxic output
+
+embeddings:
+  provider: none
+
+filters:
+  topic_keywords:
+    - president
+    - prime minister
+    - politics
+    - political party
+    - government
+    - election
+    - hack
+    - illegal
+    - drugs
+    - crime
+    - terrorist
+    - terrorism
+    - weapon
+    - violence
+  toxic_keywords:
+    - hate
+    - kill
+    - die
+    - stupid
+    - idiot
+    - moron
+    - racist
+    - sexist
+    - homophobic
+    - violence

@@ -1,0 +1,84 @@
+define user ask about politics
+  "political parties"
+  "election"
+  "government policies"
+  "political leaders"
+  "voting"
+  "democrat"
+  "republican"
+  "biden"
+  "trump"
+
+define user ask about illegal content
+  "how to make drugs"
+  "illegal activities"
+  "hacking"
+  "fraud"
+  "theft"
+  "violence"
+  "weapons"
+  "bomb"
+
+define user use toxic language
+  "hate speech"
+  "offensive language"
+  "discrimination"
+  "harassment"
+  "threats"
+
+define bot response too long
+  len($response) > 500
+
+define bot response needs citation
+  $response.contains("according to") and not $response.contains("Source:")
+
+define flow block politics
+  user ask about politics
+  bot inform cannot discuss politics
+  stop
+
+define flow block illegal content
+  user ask about illegal content
+  bot inform cannot help with illegal activities
+  stop
+
+define flow block toxic language
+  user use toxic language
+  bot inform cannot engage with toxic content
+  stop
+
+define flow check input length
+  if len($user_message) > 1000
+    bot inform message too long
+    stop
+
+define flow check response length
+  if bot response too long
+    bot inform response truncated
+    bot generate shorter response
+
+define flow enforce citations
+  if bot response needs citation
+    bot add citation reminder
+
+define bot inform cannot discuss politics
+  "I'm not able to discuss political topics. I can help you with other questions about technology, science, education, or general information."
+
+define bot inform cannot help with illegal activities
+  "I cannot and will not provide information about illegal activities. I'm here to help with legitimate questions and tasks."
+
+define bot inform cannot engage with toxic content
+  "I don't engage with harmful or offensive content. Let's keep our conversation respectful and constructive."
+
+define bot inform message too long
+  "Your message is quite long. Could you please break it down into smaller, more specific questions?"
+
+define bot inform response truncated
+  "I'll provide a concise response. If you need more details, please ask specific follow-up questions."
+
+define bot add citation reminder
+  "Please note that external claims should be verified through reliable sources."
+
+define flow greeting
+  user "*"
+  bot "Hello! How can I help you today?"
